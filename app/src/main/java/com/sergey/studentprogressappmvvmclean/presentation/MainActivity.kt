@@ -14,6 +14,7 @@ import com.sergey.studentprogressappmvvmclean.domain.usecase.AddStudentToStudent
 import com.sergey.studentprogressappmvvmclean.domain.usecase.CloseStudentEditPanelUseCase
 import com.sergey.studentprogressappmvvmclean.domain.usecase.OpenAddStudentPanelUseCase
 import com.sergey.studentprogressappmvvmclean.domain.usecase.SaveStudentTableUseCase
+import com.sergey.studentprogressappmvvmclean.domain.usecase.UploadStudentTableUseCase
 import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +26,10 @@ class MainActivity : AppCompatActivity() {
     val adapter = StudentAdapter(studentList, this)
     private val addStudentToStudentTableUseCase =  AddStudentToStudentTableUseCase(adapter)
     private val openAddStudentPanelUseCase = OpenAddStudentPanelUseCase()
-    //private val uploadStudentTableUseCase = UploadStudentTableUseCase()
-    private val sharedPrefStudentStorage = SharedPrefStudentStorage()
+    private val sharedPrefStudentStorage = SharedPrefStudentStorage(this, null)
     private val studentRepositoryImpl = StudentRepositoryImpl(sharedPrefStudentStorage)
     private val saveStudentTableUseCase = SaveStudentTableUseCase(studentRepositoryImpl)
+    private val uploadStudentTableUseCase = UploadStudentTableUseCase(adapter, studentRepositoryImpl)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             closeStudentEditPanelUseCase.exectute(llAddStudentPonel)
         }
         bthDownload.setOnClickListener {
-
+            uploadStudentTableUseCase.exectute()
         }
         bthSave.setOnClickListener {
             saveStudentTableUseCase.exectute(studentList)

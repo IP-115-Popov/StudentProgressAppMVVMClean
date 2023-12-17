@@ -10,13 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sergey.studentprogressappmvvmclean.R
 import com.sergey.studentprogressappmvvmclean.databinding.StudentItemBinding
 import com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapter
+import com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapterAddAll
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
 
 
 class StudentAdapter(var items: MutableList<Student>, var context: Context) :
     RecyclerView.Adapter<StudentAdapter.MyViewHolder>(),
-    IStudentAdapter
+    IStudentAdapter,
+    IStudentAdapterAddAll
+{
+    override  fun addAllStudent(student: List<Student>)
     {
+        items.clear()
+        items.addAll(student)
+        notifyDataSetChanged()
+    }
     override fun addStudent(student: Student)
     {
         items.add(student)

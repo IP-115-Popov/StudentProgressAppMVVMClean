@@ -1,7 +1,8 @@
-package com.sergey.studentprogressappmvvmclean
+package com.sergey.studentprogressappmvvmclean.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sergey.studentprogressappmvvmclean.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

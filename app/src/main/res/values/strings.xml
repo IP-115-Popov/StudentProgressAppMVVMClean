@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">StudentProgressAppMVVMClean</string>
+    <string name="app_name">MonitoringStudentProgressApp</string>
+    <string name="titleApp">Progress monitoring</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="download">Download</string>
+    <string name="Subject1">Physics</string>
+    <string name="Subject2">Mathematics</string>
+    <string name="Subject3">Computer science</string>
+    <string name="Subject4">Geometry</string>
+    <string name="full_name">Full Name</string>
+    <string name="CreateAccount">Создайте аккаунт</string>
+    <string name="EnterLogin">Enter login</string>
+    <string name="enterEmail">Enter email</string>
+    <string name="enterPass">Enter pass</string>
+    <string name="registration">Registration</string>
+    <string name="authorization">Authorization</string>
+    <string name="fieldsAreEmpty">Not all fields are filled in</string>
+    <string name="notAuthorized">user is not authorized</string>
+    <string name="userAdded">user added</string>
+    <string name="Register">Register</string>
+    <string-array name="KS">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

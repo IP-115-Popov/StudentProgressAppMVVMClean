@@ -6,17 +6,18 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sergey.studentprogressappmvvmclean.R
+import com.sergey.studentprogressappmvvmclean.data.repository.StudentRepositoryImpl
+import com.sergey.studentprogressappmvvmclean.data.storage.sharedrefs.SharedPrefStudentStorage
 import com.sergey.studentprogressappmvvmclean.databinding.ActivityMainBinding
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
 import com.sergey.studentprogressappmvvmclean.domain.usecase.AddStudentToStudentTableUseCase
 import com.sergey.studentprogressappmvvmclean.domain.usecase.CloseStudentEditPanelUseCase
 import com.sergey.studentprogressappmvvmclean.domain.usecase.OpenAddStudentPanelUseCase
+import com.sergey.studentprogressappmvvmclean.domain.usecase.SaveStudentTableUseCase
 import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentAdapter
-import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentForAdapter
 
 class MainActivity : AppCompatActivity() {
-    var studentList = mutableListOf<StudentForAdapter>()
+    var studentList = mutableListOf<Student>()
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding ?: throw IllegalStateException("Binding for ActivityMain must not be null")
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     val adapter = StudentAdapter(studentList, this)
     private val addStudentToStudentTableUseCase =  AddStudentToStudentTableUseCase(adapter)
     private val openAddStudentPanelUseCase = OpenAddStudentPanelUseCase()
+    //private val uploadStudentTableUseCase = UploadStudentTableUseCase()
+    private val sharedPrefStudentStorage = SharedPrefStudentStorage()
+    private val studentRepositoryImpl = StudentRepositoryImpl(sharedPrefStudentStorage)
+    private val saveStudentTableUseCase = SaveStudentTableUseCase(studentRepositoryImpl)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -51,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 val SinnKS2 = binding.SinnKS2.selectedItem.toString().toInt()
                 val SinnKS3 = binding.SinnKS3.selectedItem.toString().toInt()
                 val SinnKS4 = binding.SinnKS4.selectedItem.toString().toInt()
-                val student = StudentForAdapter(FIO, SinnKS1,SinnKS2,SinnKS3,SinnKS4)
+                val student = Student(FIO, SinnKS1,SinnKS2,SinnKS3,SinnKS4)
                 addStudentToStudentTableUseCase.exectute(student)
             }
         }
@@ -62,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         bthSave.setOnClickListener {
-
+            saveStudentTableUseCase.exectute(studentList)
         }
     }
 }

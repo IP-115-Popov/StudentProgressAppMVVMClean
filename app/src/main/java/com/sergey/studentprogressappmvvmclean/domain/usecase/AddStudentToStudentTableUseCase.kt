@@ -1,11 +1,10 @@
 package com.sergey.studentprogressappmvvmclean.domain.usecase
 
+import com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapter
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
-import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentAdapter
-import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentForAdapter
 
-class AddStudentToStudentTableUseCase(val adapter: StudentAdapter) {
-    fun exectute(student: StudentForAdapter)
+class AddStudentToStudentTableUseCase(val adapter: IStudentAdapter) {
+    fun exectute(student: Student)
     {
         adapter.addStudent(student)
     }

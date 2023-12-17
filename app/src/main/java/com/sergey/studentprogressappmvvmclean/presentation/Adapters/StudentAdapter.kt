@@ -9,9 +9,19 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sergey.studentprogressappmvvmclean.R
 import com.sergey.studentprogressappmvvmclean.databinding.StudentItemBinding
+import com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapter
+import com.sergey.studentprogressappmvvmclean.domain.models.Student
 
 
-class StudentAdapter(var items: MutableList<StudentForAdapter>, var context: Context): RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
+class StudentAdapter(var items: MutableList<Student>, var context: Context) :
+    RecyclerView.Adapter<StudentAdapter.MyViewHolder>(),
+    IStudentAdapter
+    {
+    override fun addStudent(student: Student)
+    {
+        items.add(student)
+        notifyDataSetChanged()
+    }
     class MyViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
         val binding = StudentItemBinding.bind(view)
@@ -60,10 +70,5 @@ class StudentAdapter(var items: MutableList<StudentForAdapter>, var context: Con
 
             tvFIO.text= item.FIO
         }
-    }
-    fun addStudent(student: StudentForAdapter)
-    {
-        items.add(student)
-        notifyDataSetChanged()
     }
 }

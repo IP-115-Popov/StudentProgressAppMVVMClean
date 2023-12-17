@@ -8,26 +8,52 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sergey.studentprogressappmvvmclean.R
 import com.sergey.studentprogressappmvvmclean.databinding.ActivityMainBinding
+import com.sergey.studentprogressappmvvmclean.domain.models.Student
+import com.sergey.studentprogressappmvvmclean.domain.usecase.AddStudentToStudentTableUseCase
 import com.sergey.studentprogressappmvvmclean.domain.usecase.CloseStudentEditPanelUseCase
+import com.sergey.studentprogressappmvvmclean.domain.usecase.OpenAddStudentPanelUseCase
+import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentAdapter
+import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentForAdapter
 
 class MainActivity : AppCompatActivity() {
+    var studentList = mutableListOf<StudentForAdapter>()
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding ?: throw IllegalStateException("Binding for ActivityMain must not be null")
     private val closeStudentEditPanelUseCase = CloseStudentEditPanelUseCase()
+    val adapter = StudentAdapter(studentList, this)
+    private val addStudentToStudentTableUseCase =  AddStudentToStudentTableUseCase(adapter)
+    private val openAddStudentPanelUseCase = OpenAddStudentPanelUseCase()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val llAddStudentPonel: LinearLayout = binding.llAddStudentPonel
+        val rvStudents: RecyclerView = binding.rvStudents
 
         val bthAdd = binding.bthAdd
         val bthCloseAddStudentPonel = binding.bthCloseAddStudentPonel
         val bthDownload = binding.bthDownload
         val bthSave = binding.bthSave
-        bthAdd.setOnClickListener {
 
+        rvStudents.layoutManager =  LinearLayoutManager(this)
+        rvStudents.adapter = adapter
+
+        bthAdd.setOnClickListener {
+            if (llAddStudentPonel.visibility != View.VISIBLE) {
+                openAddStudentPanelUseCase.exectute(llAddStudentPonel)
+            }
+            else
+            {
+                val FIO = binding.tvFIO.text.toString()
+                val SinnKS1 = binding.SinnKS1.selectedItem.toString().toInt()
+                val SinnKS2 = binding.SinnKS2.selectedItem.toString().toInt()
+                val SinnKS3 = binding.SinnKS3.selectedItem.toString().toInt()
+                val SinnKS4 = binding.SinnKS4.selectedItem.toString().toInt()
+                val student = StudentForAdapter(FIO, SinnKS1,SinnKS2,SinnKS3,SinnKS4)
+                addStudentToStudentTableUseCase.exectute(student)
+            }
         }
         bthCloseAddStudentPonel.setOnClickListener {
             closeStudentEditPanelUseCase.exectute(llAddStudentPonel)

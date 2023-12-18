@@ -14,18 +14,18 @@ import com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapterAdd
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
 
 
-class StudentAdapter(var items: MutableList<Student>, var context: Context) :
+class StudentAdapter(var items: MutableList<com.sergey.studentprogressappmvvmclean.domain.models.Student>, var context: Context) :
     RecyclerView.Adapter<StudentAdapter.MyViewHolder>(),
-    IStudentAdapter,
-    IStudentAdapterAddAll
+    com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapter,
+    com.sergey.studentprogressappmvvmclean.domain.adapters.IStudentAdapterAddAll
 {
-    override  fun addAllStudent(student: List<Student>)
+    override  fun addAllStudent(student: List<com.sergey.studentprogressappmvvmclean.domain.models.Student>)
     {
         items.clear()
         items.addAll(student)
         notifyDataSetChanged()
     }
-    override fun addStudent(student: Student)
+    override fun addStudent(student: com.sergey.studentprogressappmvvmclean.domain.models.Student)
     {
         items.add(student)
         notifyDataSetChanged()

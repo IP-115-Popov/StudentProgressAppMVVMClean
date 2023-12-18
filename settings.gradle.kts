@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "StudentProgressAppMVVMClean"
 include(":app")
- 
+include(":data")
+include(":domain")

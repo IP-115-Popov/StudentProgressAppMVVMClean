@@ -1,5 +1,7 @@
 package com.sergey.studentprogressappmvvmclean.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
 import com.sergey.studentprogressappmvvmclean.domain.usecase.AddStudentToStudentTableUseCase
@@ -18,21 +20,25 @@ class MainViewModel(
     private val adapter : StudentAdapter,
     private val studentList: MutableList<Student>
 ) : ViewModel() {
-    fun getAdapter(): StudentAdapter
+    private val resultLiveMutable = MutableLiveData<Int>()
+    val resultLive: LiveData<Int> = resultLiveMutable
+    fun closeStudentEditPanel(param: Int){
+        resultLiveMutable.value = param
+    }
+    fun openAddStudentPanel(param: Int)
     {
+        resultLiveMutable.value = param
+    }
+    fun getAdapter(): StudentAdapter {
         return adapter
     }
-
-    fun Add(student : Student)
-    {
+    fun Add(student : Student) {
         addStudentToStudentTableUseCase.exectute(student)
     }
-    fun Download()
-    {
+    fun Download() {
         uploadStudentTableUseCase.exectute()
     }
-    fun Save()
-    {
+    fun Save() {
         saveStudentTableUseCase.exectute(studentList)
     }
 }

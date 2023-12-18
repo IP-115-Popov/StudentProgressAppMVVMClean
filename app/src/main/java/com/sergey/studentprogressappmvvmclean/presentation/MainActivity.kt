@@ -44,9 +44,14 @@ class MainActivity : AppCompatActivity() {
         rvStudents.layoutManager =  LinearLayoutManager(this)
         rvStudents.adapter = vm.getAdapter()
 
+        vm.resultLive.observe(this)
+        {
+            llAddStudentPanel.visibility = it
+        }
+
         bthAdd.setOnClickListener {
             if (llAddStudentPanel.visibility != View.VISIBLE) {
-                llAddStudentPanel.visibility = View.VISIBLE
+                vm.openAddStudentPanel(View.VISIBLE)
             }
             else
             {
@@ -66,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bthCloseAddStudentPanel.setOnClickListener {
-            llAddStudentPanel.visibility = View.GONE
+            vm.closeStudentEditPanel(View.GONE)
         }
         bthDownload.setOnClickListener {
             vm.Download()

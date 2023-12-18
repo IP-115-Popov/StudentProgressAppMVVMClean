@@ -7,16 +7,8 @@ import android.widget.LinearLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sergey.studentprogressappmvvmclean.data.repository.StudentRepositoryImpl
-import com.sergey.studentprogressappmvvmclean.data.storage.sharedrefs.SharedPrefStudentStorage
 import com.sergey.studentprogressappmvvmclean.databinding.ActivityMainBinding
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
-import com.sergey.studentprogressappmvvmclean.domain.usecase.AddStudentToStudentTableUseCase
-import com.sergey.studentprogressappmvvmclean.domain.usecase.CloseStudentEditPanelUseCase
-import com.sergey.studentprogressappmvvmclean.domain.usecase.OpenAddStudentPanelUseCase
-import com.sergey.studentprogressappmvvmclean.domain.usecase.SaveStudentTableUseCase
-import com.sergey.studentprogressappmvvmclean.domain.usecase.UploadStudentTableUseCase
-import com.sergey.studentprogressappmvvmclean.presentation.Adapters.StudentAdapter
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null

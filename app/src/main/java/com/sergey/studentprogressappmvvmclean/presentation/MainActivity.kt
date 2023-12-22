@@ -9,20 +9,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sergey.studentprogressappmvvmclean.databinding.ActivityMainBinding
 import com.sergey.studentprogressappmvvmclean.domain.models.Student
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding ?: throw IllegalStateException("Binding for ActivityMain must not be null")
 
-    private lateinit var vm: MainViewModel
+    private val vm: MainViewModel by viewModel<MainViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        vm = ViewModelProvider(this,MainViewModelFactory(this)).get(MainViewModel::class.java)
 
 
         val llAddStudentPanel: LinearLayout = binding.llAddStudentPonel

@@ -8,6 +8,8 @@ import com.sergey.studentprogressappmvvmclean.domain.usecase.UploadStudentTableU
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.mockito.kotlin.mock
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -34,17 +36,18 @@ class Adapter : IStudentAdapterAddAll
 }
 class ExampleUnitTest {
     @Test
-    fun testUploadStudentTableUseCase() {
+    fun testSaveStudentTableUseCase() {
         val useCase = SaveStudentTableUseCase(studentRepository = StudentRepository())
-        val expected = useCase.exectute(listOf(
-            Student("fio",1,1,1,1)
-        ))
-        assertEquals(true, expected)
+        val data  = listOf(Student("fio",1,1,1,1))
+        val result = useCase.exectute(data)
+        val expected = true
+        assertEquals(expected, result)
     }
     @Test
-    fun testSaveStudentTableUseCase() {
+    fun testUploadStudentTableUseCase() {
         val useCase = UploadStudentTableUseCase(adapter = Adapter(),studentRepository = StudentRepository())
-        val expected = useCase.exectute()
-        assertEquals(true, expected)
+        val result = useCase.exectute()
+        val expected = true
+        assertEquals(expected, result)
     }
 }
